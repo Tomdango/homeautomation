@@ -3,6 +3,7 @@ Home Automation System in Node.js using Express as a framework.
 
 ## Node to Server Communication Explained
 > A 'node' is a small controller, sensor and/or monitor. They are designed to act as the actuators of the system as they carry out the instructions.
+
 > The 'server' is the master controller of all of the nodes. It tracks the status of multiple nodes, delivers messages to nodes, holds the configuration information, handles node authorisation and everything else.
 
 ### Node Authorisation
