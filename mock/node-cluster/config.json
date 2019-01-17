@@ -1,0 +1,6 @@
+{
+    "_comment": "This is the mock configuration file.",
+    "websocket": {
+        "target": "ws://localhost:9000/"
+    }
+}

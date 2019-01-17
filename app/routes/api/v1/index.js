@@ -1,6 +1,6 @@
 let router = require('express').Router();
 let control = require('./control');
-
+let websocketRouter = require('./websocket');
 let package = require('../../../package.json');
 
 router.get('/status', function(req, res) {
@@ -10,4 +10,5 @@ router.get('/status', function(req, res) {
     })
 });
 
+router.use('/websocket', websocketRouter);
 module.exports = router;

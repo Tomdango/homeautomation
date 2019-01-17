@@ -17,18 +17,18 @@ WebSocketServer.prototype.startServer = () => {
     WebSocketServer.prototype.wsServer.on('request', WebSocketServer.prototype.requestHandler);
 };
 
-WebSocketServer.prototype.originIsAllowed = origin => {
+WebSocketServer.prototype.originIsAllowed = request => {
     // For now, allow all origins
+    console.log(request);
     return true;
 };
 
 WebSocketServer.prototype.requestHandler = (request) => {
-    if(!WebSocketServer.prototype.originIsAllowed(request.origin)) {
+    if(!WebSocketServer.prototype.originIsAllowed(request)) {
         request.reject();
         console.log(`${new Date()} Connection from origin ${request.origin} rejected.`);
         return;
     };
-
     let connection = request.accept();
     console.log(`${new Date()} Connection accepted.`);
     connection.on('message', function(message) {
@@ -42,5 +42,4 @@ WebSocketServer.prototype.requestHandler = (request) => {
     });
 };
 
-let WS = new WebSocketServer();
-WS.startServer();
+module.exports = new WebSocketServer();
