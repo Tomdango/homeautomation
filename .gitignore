@@ -109,3 +109,6 @@ typings/
 
 # [CUSTOM] mock node config directory
 node_config/
+
+# Docker Compose
+docker-compose.yml

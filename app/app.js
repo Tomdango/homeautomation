@@ -7,7 +7,8 @@ var logger = require('morgan');
 var dashboardRouter = require('./routes/dashboard');
 var apiRouter = require('./routes/apiRouter');
 var websocket = require('./lib/websocket');
-websocket.startServer();
+var websocket = require('./lib/database');
+// websocket.startServer();
 
 var app = express();
 
