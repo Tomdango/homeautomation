@@ -50,7 +50,8 @@ update_config=1
 network={
    ssid="NETWORK-NAME"
    psk="NETWORK-PASSWORD"
-} ```
+}
+```
 11. Save the file as **wpa_supplicant.conf** within the "boot" device, making sure to set the **Save as type** to **All Files**.
 12. Right click on the card in the side menu, and click "Eject", then remove the SD card.
 13. Insert your SD card into your Pi, then power it on by plugging it in. The initial boot may take a while, so it's a good excuse to go make a cup of tea.
