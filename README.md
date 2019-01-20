@@ -42,7 +42,8 @@ If the Websockets don't properly work, it could mean that the nodes aren't able 
 7. Under "Select Drive", select your SD card, then click "Flash".
 8. When complete, if your SD card is no longer identified by Windows, unplug it, then plug it back in.
 9. Windows should identify your SD card as "boot" and "Removable Disk", the latter of which is inaccessible through Windows. Open "boot" and create a blank file named "ssh". To do this, open Notepad and click **File**, **Save As**, set **Save as type** to **All Files**, name it "**ssh**", then save it. Then close notepad.
-10. Open Notepad again and enter the following, substituting values where appropriate: ``` country=GB
+10. Open Notepad again and enter the following, substituting values where appropriate:
+``` country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
