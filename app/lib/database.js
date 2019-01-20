@@ -8,11 +8,6 @@ class Database {
         this.db_name = process.env.MONGO_DATABASE || 'home_automation';
     }
 
-    // A "safe" way of handling errors
-    safeThrowError(error) {
-        /* TODO: Write this function */
-    };
-
     // Connect to HomeAutomation MongoDB Database. Utility function.
     connect(callback) {
         MongoClient.connect(`mongodb://${this.db_host}:${this.db_port}/${this.db_name}`, {
@@ -124,6 +119,37 @@ class NodeCollection extends Database {
         });
     };
 
+    getTokenDetails(token, callback) {
+        if (!this._checkToken(token)) {
+            callback({status: false, message: "Token failed validation"});
+            return;
+        }
+        this.connect((database) => {
+            database.collection(this.authCollectionName, (err, collection) => {
+                if(err) throw err;
+                collection.findOne({token: token}, (err, result) => {
+                    if(err) throw err;
+                    if (result == null) {
+                        callback({status: false, message: "Token not found"}); 
+                    } else {
+                        callback({status: true, result: result});
+                    }
+                });
+            });
+        });
+    }
+
+    getAllTokens(callback) {
+        this.connect((database) => {
+            database.collection(this.authCollectionName, (err, collection) => {
+                if (err) throw err;
+                collection.find({}).toArray((err, result) => {
+                    if (err) throw err;
+                    callback(result);
+                })
+            })
+        })
+    }
     _insertAuthRequest(collection, document, callback) {
         collection.createIndex("token", { unique: true });
         collection.insertOne(document, (err, result) => {
@@ -148,7 +174,15 @@ class NodeCollection extends Database {
     };
 };
 
+class UserAuth extends Database {
+    constructor() {
+        super();
+        this.collectionName = "user-auth";
+    }
+    
+}
 module.exports = {
     Database: Database,
-    NodeCollection: NodeCollection
+    NodeCollection: NodeCollection,
+    UserAuth: UserAuth
 }

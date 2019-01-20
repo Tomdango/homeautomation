@@ -7,7 +7,6 @@ class ControllerNode {
     constructor(nodeName) {
         let WsClient = require("websocket").client;
         this.client = new WsClient();
-        this.Logger = require("./mockLogger");
         this.readLine = require("readline").createInterface({
             input: process.stdin,
             output: process.stdout
@@ -44,6 +43,7 @@ class ControllerNode {
         console.log("Before you can use this node, it must be authorised in the HomeAutomation Control Panel.".underline.yellow);        
     }
 }
+
 
 // }
 // // Connection Error

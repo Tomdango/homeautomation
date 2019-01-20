@@ -1,6 +1,6 @@
 let router = require('express').Router();
-let control = require('./control');
 let websocketRouter = require('./websocket');
+let nodeAuthRouter = require('./node-auth');
 let package = require('../../../package.json');
 
 router.get('/status', function(req, res) {
@@ -10,5 +10,5 @@ router.get('/status', function(req, res) {
     })
 });
 
-router.use('/websocket', websocketRouter);
+router.use('/node-auth', nodeAuthRouter);
 module.exports = router;

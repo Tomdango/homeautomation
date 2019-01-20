@@ -1,45 +1,22 @@
 const WsServer = require('websocket').server;
 const http = require('http');
+const logger = require("./logger");
 
 function WebSocketServer() {};
 
-WebSocketServer.prototype.startServer = () => {
-    WebSocketServer.prototype.httpServer = http.createServer((request, response) => {
-        console.log(`${new Date()} Received Request for ${request.url}.`);
-    });
-    WebSocketServer.prototype.httpServer.listen(process.env.WS_PORT, () => {
-        console.log(`${new Date()} WebSocket Server is listening on port ${process.env.WS_PORT}.`);
-    });
-    WebSocketServer.prototype.wsServer = new WsServer({
-        httpServer: WebSocketServer.prototype.httpServer,
-        autoAcceptConnections: false
-    });
-    WebSocketServer.prototype.wsServer.on('request', WebSocketServer.prototype.requestHandler);
-};
-
-WebSocketServer.prototype.originIsAllowed = request => {
-    // For now, allow all origins
-    console.log(request);
-    return true;
-};
-
-WebSocketServer.prototype.requestHandler = (request) => {
-    if(!WebSocketServer.prototype.originIsAllowed(request)) {
-        request.reject();
-        console.log(`${new Date()} Connection from origin ${request.origin} rejected.`);
-        return;
+class WebSocketServerClass {
+    constructor(port) {
+        this.logger = new logger("websocket");
+        this.httpServer = http.createServer();
+        this.httpServer.listen(port, () => {
+            this.logger.log("WS003", {port: port});
+        });
+        this.wsServer = new WsServer({
+            httpServer: this.httpServer,
+            autoAcceptConnections: false
+        });
     };
-    let connection = request.accept();
-    console.log(`${new Date()} Connection accepted.`);
-    connection.on('message', function(message) {
-        if (message.type == 'utf8') {
-            console.log(`Received Message ${message.utf8Data}`);
+}
+let ws = new WebSocketServerClass(9000);
 
-        }
-    });
-    connection.on('close', (reasonCode, description) => {
-        console.log(`${new Date()} Peer ${connection.remoteAddress} disconnected.`)
-    });
-};
-
-module.exports = new WebSocketServer();
+module.exports = WebSocketServer;
